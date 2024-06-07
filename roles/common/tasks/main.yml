@@ -1,0 +1,14 @@
+--- 
+- name: Upgrade all packages
+  yum:
+    name: "*"
+    state: latest
+ 
+- name: Install required packages
+  yum:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - tar
+      - zip

@@ -1,0 +1,28 @@
+---
+  - name: Installing php
+    yum: name=php8.1 state=present
+    become: yes
+  - name: Install php dependencies
+    yum:
+      name:
+        - php-fpm
+        - php-common
+        - php-pdo
+        - php-mbstring
+        - php-xml
+        - php-gd
+      state: present
+    become: yes
+  - name: Ensure php-fpm is running [ Amazon ]
+    service: name=php-fpm state=started enabled=yes
+    notify:
+       - restart php-fpm AWS
+       - restart nginx
+  - name: Change php.ini 
+    template:
+      src: php.ini
+      dest: /etc/php.ini     
+  - name: Change www.conf 
+    template:
+      src: www.conf
+      dest: /etc/php-fpm.d/www.conf   

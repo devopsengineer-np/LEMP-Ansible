@@ -1,0 +1,11 @@
+---
+ - name: Install LEMP STACK
+   hosts: all 
+   become: yes
+   become_user: root
+
+   roles: 
+    - common
+    - nginx
+    - php
+    - mysql
